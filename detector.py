@@ -47,9 +47,9 @@ class Detector:
             output_image_height
         ))
 
-        graved_cropped_face_image = cv2.cvtColor(cropped_face_image, cv2.COLOR_BGR2GRAY)
+        grayed_cropped_face_image = cv2.cvtColor(cropped_face_image, cv2.COLOR_BGR2GRAY)
 
-        return graved_cropped_face_image
+        return grayed_cropped_face_image
 
     def save_model(self):
         self.model.save("model.yml")
