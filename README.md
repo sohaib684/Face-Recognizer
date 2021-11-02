@@ -19,4 +19,5 @@ Then, to run the script, execute `index.py`. Using the command
 python index.py
 ```
 
+\
 You should get the list of person's name, from the images of individuals which are stored inside the `Testing` folder and the confidence level of the algorithm, in the output given by index.py.
