@@ -25,7 +25,7 @@ class Detector:
         grayed_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         face_rectangle = self.face_cascade.detectMultiScale(grayed_image, 1.1, 4)
 
-        # No face detected
+        # Return nothing, if no face detected
         if not len(face_rectangle):
             return []
         
