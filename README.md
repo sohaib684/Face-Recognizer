@@ -7,13 +7,13 @@ A model designed to classify faces of "humans" using any of the following algori
 
 Database of individual's faces should be stored inside the folder `Database/[Person's Name]`. Test subject faces should be stored inside the folder `Testing`. 
 
-<br />
+\
 Once everything is set, install the required dependencies using the command
 ```
 pip install -r requirements.txt
 ```
 
-<br />
+\
 Then, to run the script, execute `index.py`. Using the command
 ```
 python index.py
