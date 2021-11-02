@@ -62,7 +62,7 @@ class Detector:
         names = []
         
         # Names are encoded according to the index of names in self.candidate_names global variable
-        encoded_names = []
+        encoded_names_index = []
 
         for candidate_name in os.listdir("Database"):
             candidate_location = os.path.join("Database", candidate_name)
@@ -82,21 +82,60 @@ class Detector:
             if not name in self.candidate_names:
                 self.candidate_names.append(name)
 
-            name_enconding = self.candidate_names.index(name)
-            encoded_names.append(name_enconding)
+            encoded_name_index = self.candidate_names.index(name)
+            encoded_names_index.append(encoded_name_index)
 
         self.model.train(
             faces, 
-            np.array(encoded_names)
+            np.array(encoded_names_index)
         )
 
     def predict(self, image):
+        face = self.detect_face(image)
+
+        # If no face detected, return candidate name and confidence as NoneType
+        if not len(face):
+            return None, None
+        
+        encoded_name_index, confidence = self.model.predict(face)
+        candidate_name = self.candidate_names[encoded_name_index]
+        
+        return candidate_name, confidence
 
 
-    # def test_model(self):
-    #     test_images = []
-    #     for test_image in os.listdir("Testing"):
-    #         image_location = os.path.join("Testing", test_image)
-    #         image = cv2.imread(image_location)
-    #         test_images.append(image)
+    def test_model(self):
+        test_images = []
+        for test_image in os.listdir("Testing"):
+            image_location = os.path.join("Testing", test_image)
+            image = cv2.imread(image_location)
+            test_images.append(image)
+        
+        output = []
+        for test_image in test_images:
+            predicted_name, confidence = self.predict(test_image)
+            output.append([
+                predicted_name,
+                confidence
+            ])
+        
+        return output
+    
+    def pretty_print_test_results(self, results):
+        index = 1
+        for result in results:
+            candidate_name = result[0]
+            confidence = result[1]
+
+            if candidate_name == None:
+                candidate_name = "Can't Detect"
+            if confidence == None:
+                confidence = "Can't Detect"
+
+            print(f"""
+                    {index} 
+                    --------------------
+                    Candidate Name : {candidate_name}
+                    Confidence : {confidence}
+            """)
+            index += 1
 
