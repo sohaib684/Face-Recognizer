@@ -69,7 +69,7 @@ class Detector:
                 image = cv2.imread(image_location)
                 face = self.crop_face(image)
 
-                # Don't include in training data if no face is detected
+                # Don't include this sample in training data if no face is detected
                 if not len(face): 
                     continue
 
