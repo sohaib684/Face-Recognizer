@@ -20,4 +20,4 @@ python index.py
 ```
 
 \
-You should get the list of person's name, from the images of individuals which are stored inside the `Testing` folder and the confidence level of the algorithm, in the output of index.py.
+You should get the list of person's name, from the images of individuals which are stored inside the Testing folder and the confidence level of the algorithm, in the output of index.py.
