@@ -5,7 +5,7 @@ A model designed to classify faces of "humans" using any of the following algori
 - Eigen Face Model
 - Fisher Model
 
-Database of different person's faces should be stored inside the folder `Database/[Person's Name]`. Test subjects should be stored inside the folder `Testing`. 
+Database of individual's faces should be stored inside the folder `Database/[Person's Name]`. Test subject faces should be stored inside the folder `Testing`. 
 
 Once everything is set, download the required dependencies using the command
 ```
