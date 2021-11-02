@@ -1,6 +1,6 @@
 # Face-Detection
 
-A model designed to classify faces of "humans" using the following algorithms
+A model designed to classify faces of "humans" using any of the following algorithms
 - LBPH Model
 - Eigen Face Model
 - Fisher Model
