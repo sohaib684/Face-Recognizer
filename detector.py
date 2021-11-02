@@ -1,3 +1,4 @@
+import os
 import cv2
 
 class Detector:
@@ -39,3 +40,10 @@ class Detector:
 
     def save_model(self):
         self.model.save("model.yml")
+
+    def load_model(self):
+        self.model = self.model.read("model.yml")
+    
+    def train_model(self):
+        for candidate in os.listdir("Database"):
+            print(candidate)

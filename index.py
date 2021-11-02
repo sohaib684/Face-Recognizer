@@ -3,10 +3,12 @@ from detector import Detector
 
 detector = Detector()
 
-test_image = cv2.imread("Testing/2.jpg")
-cropped_face = detector.crop_face(test_image)
+detector.train_model()
 
-if not len(cropped_face):
-    print("No face detected")
-else:
-    cv2.imwrite("output.jpg", cropped_face)
+# test_image = cv2.imread("Testing/2.jpg")
+# cropped_face = detector.crop_face(test_image)
+
+# if not len(cropped_face):
+#     print("No face detected")
+# else:
+#     cv2.imwrite("output.jpg", cropped_face)
