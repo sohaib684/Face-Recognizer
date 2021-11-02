@@ -59,7 +59,7 @@ class Detector:
         faces = []
         names = []
         
-        # According to the index of names in self.candidate_names global variable
+        # Names are encoded according to the index of names in self.candidate_names global variable
         encoded_names = []
 
         for candidate_name in os.listdir("Database"):
