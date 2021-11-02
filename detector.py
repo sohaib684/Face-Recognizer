@@ -18,7 +18,7 @@ class Detector:
         if not self.model:
             raise ValueError("Invalid Model Type.")
     
-    def crop_face(self, image):
+    def detect_face(self, image):
         output_image_width = 224
         output_image_height = 224
 
@@ -47,7 +47,9 @@ class Detector:
             output_image_height
         ))
 
-        return cropped_face_image
+        graved_cropped_face_image = cv2.cvtColor(cropped_face_image, cv2.COLOR_BGR2GRAY)
+
+        return graved_cropped_face_image
 
     def save_model(self):
         self.model.save("model.yml")
@@ -67,8 +69,7 @@ class Detector:
             for image in os.listdir(candidate_location):
                 image_location = os.path.join(candidate_location, image)
                 image = cv2.imread(image_location)
-                face = self.crop_face(image)
-                face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+                face = self.detect_face(image)
 
                 # Don't include this sample in training data if no face is detected
                 if not len(face): 
@@ -88,6 +89,14 @@ class Detector:
             faces, 
             np.array(encoded_names)
         )
-    
-    def test_model(self):
+
+    def predict(self, image):
+
+
+    # def test_model(self):
+    #     test_images = []
+    #     for test_image in os.listdir("Testing"):
+    #         image_location = os.path.join("Testing", test_image)
+    #         image = cv2.imread(image_location)
+    #         test_images.append(image)
 
