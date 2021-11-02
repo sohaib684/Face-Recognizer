@@ -68,6 +68,7 @@ class Detector:
                 image_location = os.path.join(candidate_location, image)
                 image = cv2.imread(image_location)
                 face = self.crop_face(image)
+                face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
 
                 # Don't include this sample in training data if no face is detected
                 if not len(face): 
@@ -87,3 +88,6 @@ class Detector:
             faces, 
             np.array(encoded_names)
         )
+    
+    def test_model(self):
+
