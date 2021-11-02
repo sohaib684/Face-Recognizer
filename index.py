@@ -6,5 +6,5 @@ detector = Detector("Eigen")
 detector.train_model()
 detector.save_model()
 
-# Instead you can simply
+# Or, you can simply load the already trained model, using
 # detector.load_mode()
