@@ -34,7 +34,7 @@ python live.py
 
 ## Record Candidate's Sample Video
 
-In order to make detector work, it needs to be trained on the images of different candidates that are to be classified inside Database Folder. To collect these data simply execute `recorder.py`. Using the commad
+In order to make detector to work, it needs to be trained on the images of different candidates that are to be classified inside Database Folder. To collect these data simply execute `recorder.py`. Using the commad
 ```
 python record.py
 ```
