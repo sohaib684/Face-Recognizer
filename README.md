@@ -21,3 +21,13 @@ python index.py
 
 \
 You should get the list of person's name, from the images of individuals which are stored inside the Testing folder and the confidence level of the algorithm, in the output of index.py.
+
+## Live Face Detection
+
+In this feature, script connects to your webcam and tries to recognize all the faces visible using it's database. It shows the candidate name and algorithm's confidence level, in form of a videostream.
+
+\
+To run this feature, execute `live.py`. Using the command
+```
+python live.py
+```
