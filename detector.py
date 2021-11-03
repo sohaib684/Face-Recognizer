@@ -48,7 +48,7 @@ class Detector:
     def is_face_rectangle_detected(self, face_rectangle):
         return all(parameter is not None for parameter in face_rectangle)
 
-    def recognize_image(self, image):
+    def make_box_indicator(self, image, label_one = "", label_two = ""):
         rectangle_color = (0, 255, 0)
         rectangle_thickness = 2
 
@@ -76,12 +76,9 @@ class Detector:
             thickness = rectangle_thickness
         )
 
-        candidate_name, confidence = self.predict(image)
-
-        # Displaying candidate's name below the box
         cv2.putText(
             image,
-            candidate_name,
+            label_one,
             (
                 face_rect_x, 
                 face_rect_y + face_rect_height + 20
@@ -93,11 +90,9 @@ class Detector:
             cv2.LINE_AA
         )
 
-        # Displaying algorithm's confidences level below the box
-        confidence = round(confidence / 1000, 2) if confidence is not None else None
         cv2.putText(
             image,
-            f"Algo's Confidence : {confidence} %",
+            label_two,
             (
                 face_rect_x, 
                 face_rect_y + face_rect_height + 40
@@ -107,6 +102,17 @@ class Detector:
             font_color,
             font_thickness,
             cv2.LINE_AA
+        )
+
+        return image
+
+    def label_name(self, image):
+        candidate_name, confidence = self.predict(image)
+        confidence = round(confidence / 1000, 2) if confidence is not None else None
+        image = self.make_box_indicator(
+            image,
+            candidate_name,
+            f"Algo's Confidence : {confidence} %"
         )
 
         return image
