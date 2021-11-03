@@ -27,7 +27,7 @@ You should get the list of person's name, from the images of individuals which a
 In this feature, script connects to your webcam and tries to recognize all the faces visible using it's database. It shows the candidate name and algorithm's confidence level, in form of a videostream.
 
 \
-To run this feature, execute `live.py`. Using the command
+To use this feature, execute `live.py`. Using the command
 ```
 python live.py
 ```
