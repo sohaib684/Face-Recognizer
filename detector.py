@@ -17,25 +17,66 @@ class Detector:
         self.model = self.model_types.get(model_type, False)
         if not self.model:
             raise ValueError("Invalid Model Type.")
+
+    def get_face_rectangle(self, image):
+        grayed_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        face_rectangle = self.face_cascade.detectMultiScale(grayed_image, 1.1, 4)
+
+        # If no face is detected, returning x, y, width and height of rectangle as NoneType
+        if not len(face_rectangle):
+            return None, None, None, None
+        
+        # Returning rectangle of only the first face that is detected
+        return face_rectangle[0]
     
+    def is_face_rectangle_detected(self, face_rectangle):
+        return all(parameter is not None for parameter in face_rectangle)
+
+    def draw_face_rectangle(self, image):
+        rectangle_color = (0, 255, 0)
+        rectangle_thickness = 2
+
+        face_rectangle = self.get_face_rectangle(image)
+        if not self.is_face_rectangle_detected(face_rectangle):
+            return image
+            
+        (
+            face_rect_x, 
+            face_rect_y,
+            face_rect_width,
+            face_rect_height
+        ) = self.get_face_rectangle(image)
+
+        cv2.rectangle(
+            image,
+            (face_rect_x, face_rect_y),
+            (face_rect_x + face_rect_width, face_rect_y + face_rect_height),
+            rectangle_color,
+            thickness = rectangle_thickness
+        )
+
+        return image
+
+
     def detect_face(self, image):
         output_image_width = 224
         output_image_height = 224
 
-        grayed_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        face_rectangle = self.face_cascade.detectMultiScale(grayed_image, 1.1, 4)
+        face_rectangle = self.get_face_rectangle(image)
 
-        # Return nothing, if no face detected
-        if not len(face_rectangle):
-            return []
+        # Return nothing, if no face detected, that is,
+        if not self.is_face_rectangle_detected(face_rectangle):
+            return np.zeros((
+                output_image_width,
+                output_image_height
+            ))
         
-        # Extracting only the first face that is detected
         (
-            face_rect_x,
+            face_rect_x, 
             face_rect_y,
             face_rect_width,
             face_rect_height
-        ) = face_rectangle[0]
+        ) = face_rectangle
 
         cropped_face_image = image[
             face_rect_y : face_rect_y + face_rect_height,
@@ -50,6 +91,11 @@ class Detector:
         grayed_cropped_face_image = cv2.cvtColor(cropped_face_image, cv2.COLOR_BGR2GRAY)
 
         return grayed_cropped_face_image
+
+    def is_image_blank(self, image):
+        if np.all((image == 0)):
+            return True
+        return False
 
     def save_model(self):
         self.model.save("model.yml")
@@ -72,7 +118,7 @@ class Detector:
                 face = self.detect_face(image)
 
                 # Don't include this sample in training data if no face is detected
-                if not len(face): 
+                if self.is_image_blank(face): 
                     continue
 
                 faces.append(face)
@@ -94,7 +140,7 @@ class Detector:
         face = self.detect_face(image)
 
         # If no face detected, return candidate name and confidence as NoneType
-        if not len(face):
+        if self.is_image_blank(face):
             return None, None
         
         encoded_name_index, confidence = self.model.predict(face)
