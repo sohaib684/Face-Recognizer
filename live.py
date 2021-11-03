@@ -1,11 +1,13 @@
+import os
 import cv2
 import numpy as np
 import warnings
 from detector import Detector
+from dotenv import load_dotenv
+load_dotenv()
 
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-detector = Detector("Eigen")
+detection_model = os.getenv("detection_model")
+detector = Detector(detection_model)
 detector.load_model()
 
 video = cv2.VideoCapture(0)

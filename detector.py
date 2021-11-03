@@ -194,7 +194,7 @@ class Detector:
 
         self.model.train(
             faces, 
-            np.array(encoded_names_index)
+            np.array(encoded_names_index),
         )
 
     def predict(self, image):

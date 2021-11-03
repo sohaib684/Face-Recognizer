@@ -1,8 +1,11 @@
 import os
 import cv2
 from detector import Detector
+from dotenv import load_dotenv
+load_dotenv()
 
-detector = Detector("Eigen")
+detection_model = os.getenv("detection_model")
+detector = Detector(detection_model)
 
 # Get the candidate name and create a directory with that name in Database
 candidate_name = input("Enter the candidate's name :")
