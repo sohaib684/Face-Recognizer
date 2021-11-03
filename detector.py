@@ -4,6 +4,11 @@ import numpy as np
 
 class Detector:
     face_cascade = cv2.CascadeClassifier("Cascade/frontal_face.xml")
+
+    face_rectangle_parameters = {
+        "scaleFactor" : 1.1,
+        "minNeighbors" : 4
+    }
     
     model_types = {
         "LBPH" : cv2.face.LBPHFaceRecognizer_create(),
@@ -14,13 +19,24 @@ class Detector:
     candidate_names = []
 
     def __init__(self, model_type):
+        self.load_candidate_names()
         self.model = self.model_types.get(model_type, False)
         if not self.model:
             raise ValueError("Invalid Model Type.")
 
+    def update_face_rectangle_parameteres(self, scaleFactor = None, minNeighbors = None):
+        self.face_rectangle_parameters = {
+            "scaleFactor" : scaleFactor if scaleFactor is not None else self.face_rectangle_parameters["scaleFactor"],
+            "minNeighbors" : minNeighbors if minNeighbors is not None else self.face_rectangle_parameters["minNeighbors"]
+        }
+
     def get_face_rectangle(self, image):
         grayed_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        face_rectangle = self.face_cascade.detectMultiScale(grayed_image, 1.1, 4)
+        face_rectangle = self.face_cascade.detectMultiScale(
+            grayed_image, 
+            self.face_rectangle_parameters["scaleFactor"], 
+            self.face_rectangle_parameters["minNeighbors"]
+        )
 
         # If no face is detected, returning x, y, width and height of rectangle as NoneType
         if not len(face_rectangle):
@@ -32,9 +48,14 @@ class Detector:
     def is_face_rectangle_detected(self, face_rectangle):
         return all(parameter is not None for parameter in face_rectangle)
 
-    def draw_face_rectangle(self, image):
+    def recognize_image(self, image):
         rectangle_color = (0, 255, 0)
         rectangle_thickness = 2
+
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = 0.5
+        font_color = (0, 255, 0)
+        font_thickness = 1
 
         face_rectangle = self.get_face_rectangle(image)
         if not self.is_face_rectangle_detected(face_rectangle):
@@ -53,6 +74,39 @@ class Detector:
             (face_rect_x + face_rect_width, face_rect_y + face_rect_height),
             rectangle_color,
             thickness = rectangle_thickness
+        )
+
+        candidate_name, confidence = self.predict(image)
+
+        # Displaying candidate's name below the box
+        cv2.putText(
+            image,
+            candidate_name,
+            (
+                face_rect_x, 
+                face_rect_y + face_rect_height + 20
+            ),
+            font,
+            font_scale,
+            font_color,
+            font_thickness,
+            cv2.LINE_AA
+        )
+
+        # Displaying algorithm's confidences level below the box
+        confidence = round(confidence / 1000, 2) if confidence is not None else None
+        cv2.putText(
+            image,
+            f"Algo's Confidence : {confidence} %",
+            (
+                face_rect_x, 
+                face_rect_y + face_rect_height + 40
+            ),
+            font,
+            font_scale,
+            font_color,
+            font_thickness,
+            cv2.LINE_AA
         )
 
         return image
@@ -101,8 +155,12 @@ class Detector:
         self.model.save("model.yml")
 
     def load_model(self):
-        self.model = self.model.read("model.yml")
+        self.model.read("model.yml")
     
+    def load_candidate_names(self):
+        for candidate_name in os.listdir("Database"):
+            self.candidate_names.append(candidate_name)
+
     def train_model(self):
         faces = []
         names = []
@@ -125,9 +183,6 @@ class Detector:
                 names.append(candidate_name)
         
         for name in names:
-            if not name in self.candidate_names:
-                self.candidate_names.append(name)
-
             encoded_name_index = self.candidate_names.index(name)
             encoded_names_index.append(encoded_name_index)
 
