@@ -13,7 +13,7 @@ detector.save_model()
 # Or, you can simply load the already trained model, using
 # detector.load_mode()
 
-# This block of code, specifically recognize a specific image
+# This block of code, specifically recognize a single image
 test_image = cv2.imread("Testing/3.png")
 name, confidence = detector.predict(test_image)
 

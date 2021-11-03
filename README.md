@@ -5,7 +5,7 @@ A script designed to classify faces of "humans" using any of the following algor
 - Eigen Face Model
 - Fisher Model
 
-Database of individual's faces should be stored inside the folder `Database/[Person's Name]`. Test subject faces should be stored inside the folder `Testing`. 
+Database of individual's face should be stored inside the folder `Database/[Person's Name]`. Test subject faces should be stored inside the folder `Testing`. 
 
 \
 Once everything is set, install the required dependencies using the command
