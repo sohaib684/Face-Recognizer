@@ -6,7 +6,8 @@ from detector import Detector
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 detector = Detector("Eigen")
-detector.load_model()
+detector.train_model()
+detector.save_model()
 
 video = cv2.VideoCapture(0)
 cv2.namedWindow("LiveDetection")
