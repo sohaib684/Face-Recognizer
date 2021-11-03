@@ -38,3 +38,9 @@ In order to make detector to work, it needs to be trained on the images of diffe
 ```
 python record.py
 ```
+
+### Train the model each time you update Database
+Yes, each time you update the database folder, in order to see the effects you need to train `model.yml` with the new data. In order to do that, use the command
+```
+python train_model.py
+```
