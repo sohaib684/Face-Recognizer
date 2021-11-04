@@ -8,6 +8,7 @@ load_dotenv()
 # - LBPH
 # - Eigen
 # - Fisher
+# You can change the model type to be used from .env file
 detection_model = os.getenv("detection_model")
 detector = Detector(detection_model)
 
