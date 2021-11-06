@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+from pathlib import Path
 from utility import ProgressBar
 
 class Detector:
@@ -167,6 +168,9 @@ class Detector:
         self.model.read(model_name)
     
     def load_candidate_names(self):
+        if not Path('Database').is_dir():
+            os.mkdir("Database")
+
         for candidate_name in os.listdir("Database"):
             self.candidate_names.append(candidate_name)
 
@@ -201,19 +205,12 @@ class Detector:
             encoded_name_index = self.candidate_names.index(name)
             encoded_names_index.append(encoded_name_index)
 
-        # Training faces piece-wise one at a time
-        for index, face in enumerate(faces):
-            total = len(faces)
-            progress = index
-
-            progress_bar = ProgressBar("Training Dataset")
-            progress_bar.set_progress(progress, total)
-            progress_bar.print_loader()
-
-            self.model.train(
-                [ face ], 
-                np.array(encoded_names_index[index]),
-            )
+        print("[*] Training the Model")
+        self.model.train(
+            faces, 
+            np.array(encoded_names_index),
+        )
+        print("[+] Training model Complete")
 
     def predict(self, image):
         face = self.detect_face(image)

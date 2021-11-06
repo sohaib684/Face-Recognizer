@@ -12,11 +12,7 @@ load_dotenv()
 detection_model = os.getenv("detection_model")
 detector = Detector(detection_model)
 
-detector.train_model()
-detector.save_model()
-
-# Or, you can simply load the already trained model, using
-# detector.load_mode()
+detector.load_mode("model_Eigen.yml")
 
 # This block of code, specifically recognize a single image
 test_image = cv2.imread("Testing/3.png")

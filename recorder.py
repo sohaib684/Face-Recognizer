@@ -6,6 +6,7 @@ load_dotenv()
 
 detection_model = os.getenv("detection_model")
 detector = Detector(detection_model)
+detector.load_model("model_Eigen.yml")
 
 # Get the candidate name and create a directory with that name in Database
 candidate_name = input("Enter the candidate's name :")

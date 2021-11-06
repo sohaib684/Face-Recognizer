@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 detection_model = os.getenv("detection_model")
-detector = Detector(detection_model)
-detector.load_model()
+detector = Detector("Eigen")
+detector.load_model("model_Eigen.yml")
 
 video = cv2.VideoCapture(0)
 cv2.namedWindow("LiveDetection")
