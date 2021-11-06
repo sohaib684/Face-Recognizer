@@ -159,11 +159,11 @@ class Detector:
             return True
         return False
 
-    def save_model(self):
-        self.model.save("model.yml")
+    def save_model(self, model_name):
+        self.model.save(model_name)
 
-    def load_model(self):
-        self.model.read("model.yml")
+    def load_model(self, model_name):
+        self.model.read(model_name)
     
     def load_candidate_names(self):
         for candidate_name in os.listdir("Database"):
