@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+from utility import ProgressBar
 
 class Detector:
     face_cascade = cv2.CascadeClassifier("Cascade/frontal_face.xml")
@@ -178,7 +179,13 @@ class Detector:
 
         for candidate_name in os.listdir("Database"):
             candidate_location = os.path.join("Database", candidate_name)
-            for image in os.listdir(candidate_location):
+            for image_index, image in enumerate(os.listdir(candidate_location)):
+                # Progress Bar
+                total_images = len(os.listdir(candidate_location))
+                progress_bar = ProgressBar(f"Loading Image Sample of {candidate_name}")
+                progress_bar.set_progress(image_index, total_images)
+                progress_bar.print_loader()
+
                 image_location = os.path.join(candidate_location, image)
                 image = cv2.imread(image_location)
                 face = self.detect_face(image)
@@ -194,10 +201,19 @@ class Detector:
             encoded_name_index = self.candidate_names.index(name)
             encoded_names_index.append(encoded_name_index)
 
-        self.model.train(
-            faces, 
-            np.array(encoded_names_index),
-        )
+        # Training faces piece-wise one at a time
+        for index, face in enumerate(faces):
+            total = len(faces)
+            progress = index
+
+            progress_bar = ProgressBar("Training Dataset")
+            progress_bar.set_progress(progress, total)
+            progress_bar.print_loader()
+
+            self.model.train(
+                [ face ], 
+                np.array(encoded_names_index[index]),
+            )
 
     def predict(self, image):
         face = self.detect_face(image)

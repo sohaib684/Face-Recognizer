@@ -1,16 +1,17 @@
 class ProgressBar:
     total = None
     progress = None
+    byline = None
 
-    def __init__(self):
-            pass
+    def __init__(self, byline):
+            self.byline = byline
 
-    def set_progress(self, total, progress):
+    def set_progress(self, progress, total):
         self.total = total
         self.progress = progress
 
     def print_loader(self):
-        progress = self.progress
+        progress = self.progress + 1
         total = self.total
 
         loader_length = 30
@@ -26,5 +27,7 @@ class ProgressBar:
         for i in range(0, loader_length - progress_length):
             inner_loader += " "
 
-        print(f"Percentage : {percentage} %  [{ inner_loader }]", end="\r")
+        print(f"Percentage : {percentage} %  [{ inner_loader }] { self.byline }                          ", end="\r")
 
+        if percentage == 100:
+            print("\n")
