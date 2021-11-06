@@ -19,6 +19,7 @@ video = cv2.VideoCapture(0)
 cv2.namedWindow("Recorder")
 
 # Creating Scale Factor Trackbar for Face Detector
+# Default Value : 7
 cv2.createTrackbar(
     "(scaleFactor - 1) * 10", 
     "Recorder", 
@@ -28,6 +29,7 @@ cv2.createTrackbar(
 )
 
 # Creating Minimum Neighbor Trackbar for Face Detector
+# Default Value : 3
 cv2.createTrackbar(
     "minNeighbors - 1", 
     "Recorder", 

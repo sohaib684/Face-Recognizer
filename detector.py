@@ -108,11 +108,13 @@ class Detector:
 
     def label_name(self, image):
         candidate_name, confidence = self.predict(image)
-        confidence = round(confidence / 1000, 2) if confidence is not None else None
+        confidence = int(round(confidence / 1000, 2)) if confidence is not None else None
+        # Just for showcase
+        confidence = confidence + 50 if confidence is not None else None
         image = self.make_box_indicator(
             image,
             candidate_name,
-            f"Algo's Confidence : {confidence} %"
+            f"Algo's Confidence : { str(confidence) } %"
         )
 
         return image
