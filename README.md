@@ -1,8 +1,6 @@
 # Face-Detector-Deepface
 
-A script designed to classify faces of "humans" using any of the following Deepface Library by Facebook
-
-Database of individual's face should be stored inside the folder `Database/[Person's Name].[png/jpg/...]`.
+A script designed to classify faces of "humans" using Deepface Library by Facebook. Database of individual's face should be stored inside the folder `Database/[Person's Name].[png/jpg/...]`.
 
 \
 Once everything is set, install the required dependencies using the command
