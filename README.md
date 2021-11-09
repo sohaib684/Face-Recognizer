@@ -1,4 +1,4 @@
-# Face-Detector
+# Face-Detector-Deepface
 
 A script designed to classify faces of "humans" using any of the following Deepface Library by Facebook
 
