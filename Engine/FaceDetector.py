@@ -11,6 +11,12 @@ class FaceDetector:
     def __init__(self):
         pass
 
+    def update_face_rectangle_parameteres(self, scaleFactor = None, minNeighbors = None):
+        self.face_rectangle_parameters = {
+            "scaleFactor" : scaleFactor if scaleFactor is not None else self.face_rectangle_parameters["scaleFactor"],
+            "minNeighbors" : minNeighbors if minNeighbors is not None else self.face_rectangle_parameters["minNeighbors"]
+        }
+
     def get_face_rectangle(self, image):
         grayed_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         face_rectangle = self.face_cascade.detectMultiScale(
