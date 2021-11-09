@@ -1,6 +1,6 @@
 import os
 import cv2
-# from deepface import DeepFace
+from deepface import DeepFace
 
 class FaceRecognizer:
     face_detector = None
@@ -9,18 +9,16 @@ class FaceRecognizer:
         self.face_detector = face_detector
 
     def guess_person_name(self, image_location, database_location):
-        # probable_guesses = DeepFace.find(
-        #     img_path = image_location,
-        #     db_path = database_location
-        # )
+        probable_guesses = DeepFace.find(
+            img_path = image_location,
+            db_path = database_location
+        )
         
-        # max_probable_guess = probable_guesses.max()
-        # candidate_database_image_location = max_probable_guess["identity"]
-        # candidate_name = candidate_database_image_location.split("/")[1].split(".")[0]
-        # confidence = max_probable_guess["VGG-Face_cosine"] * 100
+        max_probable_guess = probable_guesses.max()
+        candidate_database_image_location = max_probable_guess["identity"]
+        candidate_name = candidate_database_image_location.split("/")[1].split(".")[0]
+        confidence = max_probable_guess["VGG-Face_cosine"] * 100
 
-        candidate_name = "Kriegher"
-        confidence = 16.012134
         return candidate_name, confidence
     
     def label_image_with_recognized_names(self, image):
