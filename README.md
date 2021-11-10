@@ -8,7 +8,7 @@ Once everything is set, install the required dependencies using the command
 pip install -r requirements.txt
 ```
 
-## Record Candidate's Sample Pictures
+## Capture Candidate's Sample Images
 
 In order to make detector to work, it needs Candidate Images inside Database Folder that are to be recognized. To shoot these images simply execute `camera.py`. Using the commad
 ```
