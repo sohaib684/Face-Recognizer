@@ -1,4 +1,4 @@
-# Face-Detector
+# Face-Recogizer
 
 A script designed to classify faces of "humans" using any of the following algorithms
 - LBPH Model
