@@ -1,8 +1,6 @@
-# Face-Detector-Deepface
+# Face-Recognizer-Deepface
 
-A script designed to classify faces of "humans" using any of the following Deepface Library by Facebook
-
-Database of individual's face should be stored inside the folder `Database/[Person's Name].[png/jpg/...]`.
+A script designed to classify faces of "humans" using Deepface Library by Facebook. Database of individual's face should be stored inside the folder `Database/[Person's Name].[png/jpg/...]`.
 
 \
 Once everything is set, install the required dependencies using the command
@@ -10,7 +8,7 @@ Once everything is set, install the required dependencies using the command
 pip install -r requirements.txt
 ```
 
-## Record Candidate's Sample Pictures
+## Capture Candidate's Sample Images
 
 In order to make detector to work, it needs Candidate Images inside Database Folder that are to be recognized. To shoot these images simply execute `camera.py`. Using the commad
 ```

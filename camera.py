@@ -64,7 +64,7 @@ while True:
 
         cv2.putText(
             frame,
-            "Press SPACE to start the pictures",
+            "Press SPACE to shoot pictures",
             (50, 50), font, font_scale, font_color, font_thickness, cv2.LINE_AA
         )
         cv2.putText(
