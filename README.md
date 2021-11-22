@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Face-Recognizer
-=======
 # Face-Recognizer-Deepface
->>>>>>> a4b1a804b5b90557b6e63553c58175659d8530f0
 
 A script designed to classify faces of "humans" using Deepface Library by Facebook. Database of individual's face should be stored inside the folder `Database/[Person's Name].[png/jpg/...]`.
 
